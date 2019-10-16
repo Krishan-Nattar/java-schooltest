@@ -52,11 +52,6 @@ public class CourseController
     {
         newCourse = courseService.save(newCourse);
 
-        // set the location header for the newly created resource
-//        HttpHeaders responseHeaders = new HttpHeaders();
-//        URI newStudentURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{Studentid}").buildAndExpand(newStudent.getStudid()).toUri();
-//        responseHeaders.setLocation(newStudentURI);
-
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

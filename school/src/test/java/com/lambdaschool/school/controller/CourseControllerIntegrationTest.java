@@ -1,5 +1,9 @@
 package com.lambdaschool.school.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lambdaschool.school.model.Course;
+import com.lambdaschool.school.model.Instructor;
+import com.lambdaschool.school.service.InstructorService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.number.OrderingComparison.lessThan;
@@ -18,6 +25,9 @@ public class CourseControllerIntegrationTest
 {
     @Autowired
     private WebApplicationContext webApplicationContext;
+
+    @Autowired
+    private InstructorService instructorService;
 
     @Before
     public void initialiseRestAssuredMockMvcWebApplicationContext()
@@ -33,20 +43,19 @@ public class CourseControllerIntegrationTest
     }
 
 //
-//    //    POST /restaurants/restaurant
-//    @Test
-//    public void givenPostARestaurant() throws Exception
-//    {
-//        ArrayList<RestaurantPayments> thisPay = new ArrayList<>();
-//        String rest3Name = "Number 1 Test Eats";
-//        Restaurant r3 = new Restaurant(rest3Name, "565 Side Test Avenue", "Village", "ST", "555-123-1555", thisPay);
-//        r3.getMenus().add(new Menu("Pizza", 15.15, r3));
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        String stringR3 = mapper.writeValueAsString(r3);
-//
-//        given().contentType("application/json").body(stringR3).when().post("/restaurants/restaurant").then().statusCode(201);
-//    }
+    //    POST /courses/course/add
+    @Test
+    public void givenPostACourse() throws Exception
+    {
+        String courseName = "Learn to Yoyo";
+        Instructor i1 = instructorService.findInstructorById(1);
+        Course newCourse = new Course(courseName, i1);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String courseString = mapper.writeValueAsString(newCourse);
+
+        given().contentType("application/json").body(courseString).when().post("/courses/course/add").then().statusCode(201);
+    }
 //
 //
 //    //    GET /restaurants/restaurant/{restaurantId}
