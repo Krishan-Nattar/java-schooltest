@@ -2,6 +2,8 @@ package com.lambdaschool.school.service;
 
 import com.lambdaschool.school.SchoolApplication;
 //import com.lambdaschool.school.exceptions.ResourceNotFoundException;
+import com.lambdaschool.school.model.Course;
+import com.lambdaschool.school.model.Instructor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -17,7 +19,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityNotFoundException;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -28,6 +34,9 @@ public class CourseServiceImplementationTest {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private InstructorService instructorService;
 
     @Before
     public void setUp() {
@@ -55,6 +64,22 @@ public class CourseServiceImplementationTest {
     {
         courseService.delete(2);
         assertEquals(5, courseService.findAll().size());
+    }
+
+    @Test
+    public void save()
+    {
+
+        String courseName = "Learn to Yoyo";
+        Instructor i1 = instructorService.findInstructorById(1);
+        Course newCourse = new Course(courseName, i1);
+
+        Course returnCourse = courseService.save(newCourse);
+
+        assertNotNull(returnCourse);
+
+        Course foundCourse = courseService.findCourseById(returnCourse.getCourseid());
+        assertEquals(foundCourse.getCoursename(), returnCourse.getCoursename());
     }
 
 
