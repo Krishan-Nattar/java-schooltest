@@ -17,6 +17,11 @@ public class CourseServiceImpl implements CourseService
     private CourseRepository courserepos;
 
     @Override
+    public Course findCourseById(long id) {
+        return courserepos.findCourseByCourseid(id);
+    }
+
+    @Override
     public ArrayList<Course> findAll()
     {
         ArrayList<Course> list = new ArrayList<>();
