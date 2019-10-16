@@ -79,7 +79,6 @@ public class CourseControllerTest {
     {
         String apiUrl = "/courses/courses";
 
-
         System.out.println("SIZE: " + courseList.size());
         Mockito.when(courseService.findAll()).thenReturn(courseList);
 
@@ -88,7 +87,7 @@ public class CourseControllerTest {
         System.out.println(rb);
         MvcResult r = mockMvc.perform(rb).andReturn(); // this could throw an exception
         System.out.println("GET endpoint accessed?");
-//        System.out.println(r.getResponse().getContentAsString());
+
         String tr = r.getResponse().getContentAsString();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -107,15 +106,6 @@ public class CourseControllerTest {
         Course newCourse = new Course(courseName, i1);
 
 
-
-        // build a restaurant
-//        ArrayList<RestaurantPayments> thisPay = new ArrayList<>();
-//        String rest3Name = "Number 1 Test Eats";
-//        Restaurant r3 = new Restaurant(rest3Name,
-//                "565 Side Test Avenue",
-//                "Village", "ST", "555-123-1555",
-//                thisPay);
-//        r3.setRestaurantid(100);
         ObjectMapper mapper = new ObjectMapper();
         String courseString = mapper.writeValueAsString(newCourse);
 
