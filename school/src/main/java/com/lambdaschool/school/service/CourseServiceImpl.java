@@ -22,6 +22,11 @@ public class CourseServiceImpl implements CourseService
     }
 
     @Override
+    public void save(Course course) {
+        courserepos.save(course);
+    }
+
+    @Override
     public ArrayList<Course> findAll()
     {
         ArrayList<Course> list = new ArrayList<>();
