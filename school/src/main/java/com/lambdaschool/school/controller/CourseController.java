@@ -43,7 +43,7 @@ public class CourseController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/Student",
+    @PostMapping(value = "/course/add",
             consumes = {"application/json"},
             produces = {"application/json"})
     public ResponseEntity<?> addNewCourse(@Valid
