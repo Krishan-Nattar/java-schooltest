@@ -51,7 +51,7 @@ public class StudentController
     }
 
 
-    @PostMapping(value = "/Student",
+    @PostMapping(value = "/student/add",
                  consumes = {"application/json"},
                  produces = {"application/json"})
     public ResponseEntity<?> addNewStudent(@Valid

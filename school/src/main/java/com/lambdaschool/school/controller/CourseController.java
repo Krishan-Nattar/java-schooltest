@@ -1,13 +1,19 @@
 package com.lambdaschool.school.controller;
 
 import com.lambdaschool.school.model.Course;
+import com.lambdaschool.school.model.Student;
 import com.lambdaschool.school.service.CourseService;
 import com.lambdaschool.school.view.CountStudentsInCourses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 @RestController
@@ -35,5 +41,17 @@ public class CourseController
     {
         courseService.delete(courseid);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/course/add",
+            consumes = {"application/json"},
+            produces = {"application/json"})
+    public ResponseEntity<?> addNewCourse(@Valid
+                                           @RequestBody
+                                                   Course newCourse) throws URISyntaxException
+    {
+        newCourse = courseService.save(newCourse);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
